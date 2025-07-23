@@ -18,3 +18,5 @@ pr-test
 triggered_by 16
 
 Updated by Shailesh - 23 Jul
+
+testing-dev-env-pipeline-queues turned off
