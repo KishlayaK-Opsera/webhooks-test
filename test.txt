@@ -15,6 +15,9 @@ testing locked pipeline54
 triggered_by 9
 
 pr-test
-triggered_by 17
+triggered_by 30
+
 
 Updated by Shailesh - 23 Jul
+
+testing-dev-env-pipeline-queues turned off
