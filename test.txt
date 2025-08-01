@@ -23,3 +23,5 @@ Update by Shailesh - 29 Jul
 
 testing-dev-env-pipeline-queues turned off
 pr-test
+
+uat-push-test
