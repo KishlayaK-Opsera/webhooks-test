@@ -28,5 +28,4 @@ uat-pr-test
 
 uat-push-test
 
-workday-issue 1
-
+workday-issue 2
