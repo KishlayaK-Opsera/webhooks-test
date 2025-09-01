@@ -1,0 +1,91 @@
+resources:
+  jobs:
+    wf_eaton_prod_github_advanced_security_pull_daily:
+      email_notifications:
+        no_alert_for_skipped_runs: false
+      format: MULTI_TASK
+      health:
+        rules:
+        - metric: RUN_DURATION_SECONDS
+          op: GREATER_THAN
+          value: 10800
+      job_clusters:
+      - job_cluster_key: Job_cluster
+        new_cluster:
+          aws_attributes:
+            availability: SPOT_WITH_FALLBACK
+            first_on_demand: 1
+            spot_bid_price_percent: 100
+            zone_id: auto
+          data_security_mode: USER_ISOLATION
+          driver_node_type_id: i4i.xlarge
+          enable_elastic_disk: true
+          node_type_id: i4i.large
+          num_workers: 8
+          policy_id: 0004DBE3A89B63DC
+          runtime_engine: STANDARD
+          spark_version: 15.4.x-scala2.12
+      max_concurrent_runs: 1
+      name: wf_eaton_prod_github_advanced_security_pull_daily
+      notification_settings:
+        no_alert_for_canceled_runs: false
+        no_alert_for_skipped_runs: false
+      parameters:
+      - default: eaton_prod
+        name: catalog_name
+      - default: sp_eaton_prod_de
+        name: service_principal
+      - default: incr_load
+        name: type
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
+      run_as:
+        service_principal_name: 775966f4-f88b-4c00-8b11-9c1f8f8c2498
+      schedule:
+        pause_status: UNPAUSED
+        quartz_cron_expression: 0 0 */8 * * ?
+        timezone_id: Asia/Kolkata
+      tags:
+        application: ghas
+        customer: eaton
+      tasks:
+      - for_each_task:
+          concurrency: 10
+          inputs: '["etn-corp"]'
+          task:
+            job_cluster_key: Job_cluster
+            libraries:
+            - pypi:
+                package: mongo-connector
+            notebook_task:
+              base_parameters:
+                owner: '{{input}}'
+              notebook_path: /Workspace/etl_incremental_notebooks/github/advanced_security/common/GHA
+                Code Scan Alerts Rest API
+              source: WORKSPACE
+            run_if: ALL_SUCCESS
+            task_key: loop_over_each_org_iteration
+            timeout_seconds: 0
+        run_if: ALL_SUCCESS
+        task_key: loop_over_each_org
+        timeout_seconds: 0
+      - depends_on:
+        - task_key: loop_over_each_org
+        disable_auto_optimization: true
+        max_retries: 0
+        min_retry_interval_millis: 900000
+        notebook_task:
+          notebook_path: /Workspace/etl_incremental_notebooks/github/advanced_security/common/GHA
+            Scan Alerts Transformation
+          source: WORKSPACE
+        retry_on_timeout: false
+        run_if: ALL_SUCCESS
+        task_key: transform_process
+        timeout_seconds: 0
+      timeout_seconds: 0
+      webhook_notifications:
+        on_duration_warning_threshold_exceeded:
+        - id: b5248eaa-bf67-4ff6-ac77-6f770e76b794
+        on_failure:
+        - id: b5248eaa-bf67-4ff6-ac77-6f770e76b794
