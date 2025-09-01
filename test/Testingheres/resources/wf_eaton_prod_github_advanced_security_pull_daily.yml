@@ -1,4 +1,4 @@
-resources:
+${var.hmmm}resources:
   jobs:
     wf_eaton_prod_github_advanced_security_pull_daily:
       email_notifications:
