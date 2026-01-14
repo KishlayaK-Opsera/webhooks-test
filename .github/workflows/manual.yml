@@ -1,0 +1,26 @@
+name: workflow_dispatcher_UI_run
+on:
+  workflow_dispatch:
+    inputs:
+     name:
+      description: What is your name
+      required: true
+      type: String
+
+jobs:
+  manualCommandJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: manual step using command
+        run: echo "${{inputs.name}}"
+
+#To run it manually
+#gh workflow run manual.yml -f name=ASHISH_JHA
+
+#If this throws 403 or forbidden 
+#Then make sure u create one token with read write access to Actions and workflows
+# 1: export GITHUB_TOKEN="<token>"
+# 2: gh workflow run manual.yml -f name=ASHISH_JHA
+#   --> here -f is for passing input data 
+# 3: To check the workflow either click Actions tab on UI or use below commands
+# -->gh run list -- workflow="name.yml"

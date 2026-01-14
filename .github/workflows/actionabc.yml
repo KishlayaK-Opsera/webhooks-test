@@ -1,0 +1,20 @@
+name: Reused Workflow File
+
+on:
+  workflow_call:
+    inputs:
+      name_param:
+        required: true
+        type: string
+
+jobs:
+  reused_job_implementation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Correctly placed within steps
+
+      - name: Implementing reused data
+        run: |
+          echo "Input parameter: ${{ inputs.name_param }}"
+          echo "Executed successfully"

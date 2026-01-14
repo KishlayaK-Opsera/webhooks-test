@@ -1,0 +1,23 @@
+name: conditional_expression
+on: [push]
+jobs:
+  checking_conditions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking if conditions for contains
+        #Contains
+        if: contains('ashish','his')
+        run: |
+          echo "IT contains his"
+          #Ashish is the value for ASHISHVARIABLETEST
+          if [[ "${{ secrets.ASHISHVARIABLETEST }}" == *"abc"* ]]; then
+            echo "Secrets unlocked"
+          fi
+      - name: checking if conditions for starts with
+        #Starts with
+        if: startswith('ashish','as')
+        run: echo "IT startswith as"
+      - name: checking if conditions for ends with
+        #ends with
+        if: endswith('ashish','sh')
+        run: echo "IT endswith sh"       

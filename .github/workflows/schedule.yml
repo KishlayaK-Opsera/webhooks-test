@@ -1,0 +1,13 @@
+name: ashish-schedule-actions
+on:
+  push:
+#  schedule:
+#   - cron: '*/10 * * * *'
+
+jobs:
+  ashish-scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ashish schedued step 1
+        id: cron1
+        run: echo "Ashish step 1"
