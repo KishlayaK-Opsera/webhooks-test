@@ -9,13 +9,19 @@ on:
 
 jobs:
   post-ci-job:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Modified condition: run if triggered manually OR if workflow_run succeeded
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Print workflow info
         run: |
-          echo "Triggered by workflow: ${{ github.event.workflow_run.name }}"
-          echo "Run ID: ${{ github.event.workflow_run.id }}"
-          echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "Event name: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "Triggered by workflow: ${{ github.event.workflow_run.name }}"
+            echo "Run ID: ${{ github.event.workflow_run.id }}"
+            echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          else
+            echo "Manually triggered via workflow_dispatch"
+          fi
       - name: Example follow-up step
         run: echo "CI succeeded, running post-CI tasks"
