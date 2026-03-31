@@ -29,3 +29,5 @@ uat-pr-test
 uat-push-test
 
 workday-issue 9
+
+auto-merget (git-operation) test
