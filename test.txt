@@ -25,6 +25,8 @@ pr-test
 uat-pr-test
 uat-push-test
 workday-issue 9
+
+auto-merget (git-operation) test
 prod-test 1
 06/10/2025
 slack notifications test 2
@@ -33,3 +35,4 @@ slack notifications test 2
 webhook-2 -> 11th May 3:42
 webhook-2 -> 11th May 6:21
 11th May 2026
+12th May 2026
