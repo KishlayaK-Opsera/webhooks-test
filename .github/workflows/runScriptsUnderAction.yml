@@ -1,0 +1,15 @@
+name: Run Scripts in Workflow 
+on:
+  push:
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .github/workflows  # Default working directory for all run steps
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Running scripts
+        run: bash scriptexe.sh  # Now this will run in the default working directory

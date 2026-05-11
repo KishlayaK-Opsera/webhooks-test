@@ -1,0 +1,18 @@
+# name: Reusable caller
+# on:
+#   workflow_dispatch: # This means that we will run this manually on UI
+
+# jobs:
+#   initiate_reusable:
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: .github/workflows 
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Call reusable workflow
+#         uses: actionabc.yml@abc
+#         with:
+#           name_param: Ashish_Jha_Ji

@@ -1,0 +1,21 @@
+name: matrix & max-parallel
+on:
+  push:
+jobs:
+  matrix-job:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        pet: [cat, dog]
+        color: [pink, brown]
+        include:
+          - color: white
+            pet: dog
+    steps:
+      - run: echo "Hello ${{ matrix.color }} ${{ matrix.pet }}"
+
+# This will have 3 executions
+# Matrix-->  is no of ptes * no od color = 2*2 ~~ 4
+# We also have include  no of ptes * no od color = 1*1 ~~ 1
+# Total: 4+1 = 5 executions
